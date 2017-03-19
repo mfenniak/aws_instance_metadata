@@ -1,19 +1,16 @@
-```
-curl http://169.254.169.254/latest/dynamic/instance-identity/document
-{
-  "privateIp" : "172.30.0.60",
-  "availabilityZone" : "us-west-2a",
-  "devpayProductCodes" : null,
-  "version" : "2010-08-31",
-  "instanceId" : "i-0edd3671b0bb87981",
-  "billingProducts" : null,
-  "instanceType" : "t2.nano",
-  "pendingTime" : "2017-03-19T16:32:58Z",
-  "accountId" : "668580716257",
-  "architecture" : "x86_64",
-  "kernelId" : null,
-  "ramdiskId" : null,
-  "imageId" : "ami-f173cc91",
-  "region" : "us-west-2"
+# aws_instance_metadata
+
+This is a small Rust library to pull AWS instance metadata for the currently running AWS instance from the AWS EC2 metadata web service (http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html).
+
+## Example
+
+```rust
+extern crate aws_instance_metadata;
+
+fn main() {
+    let metadata = aws_instance_metadata::get().unwrap();
+    println!("instance_id: {:?}", metadata.instance_id);
+    println!("region: {:?}", metadata.region());
+    println!("ip: {:?}", metadata.private_ip());
 }
 ```
