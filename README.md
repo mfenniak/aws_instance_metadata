@@ -4,6 +4,13 @@ This is a small Rust library to pull AWS instance metadata for the currently run
 
 ## Example
 
+Cargo.toml:
+```toml
+[dependencies]
+aws_instance_metadata = "0.1"
+```
+
+main.rs:
 ```rust
 extern crate aws_instance_metadata;
 
