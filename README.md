@@ -2,6 +2,10 @@
 
 This is a small Rust library to pull AWS instance metadata for the currently running AWS instance from the AWS EC2 metadata web service (http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html).
 
+It currently only supports basic identity metadata; region, availability zone, instance type, account id, instance id, AMI id (image_id), and private IP.  
+
+Distributed under the terms of the MIT license.
+
 ## Example
 
 Cargo.toml:
