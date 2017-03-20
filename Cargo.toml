@@ -3,7 +3,7 @@ name = "aws_instance_metadata"
 version = "0.1.0"
 authors = ["Mathieu Fenniak <mathieu@fenniak.net>"]
 description = "Rust micro-library providing read access to AWS instance metadata"
-homepage = "https://github.com/mfenniak/aws_instance_metadata"
+homepage = "https://docs.rs/aws_instance_metadata"
 repository = "https://github.com/mfenniak/aws_instance_metadata"
 license = "MIT"
 

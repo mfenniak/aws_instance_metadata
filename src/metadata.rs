@@ -1,3 +1,5 @@
+#![deny(missing_docs)]
+
 extern crate rusoto;
 extern crate hyper;
 extern crate serde_json;
@@ -8,15 +10,21 @@ use myerr::MetadataRetrievalError;
 use std::str::FromStr;
 use std::net::{IpAddr, AddrParseError};
 
+/// struct containing instance metadata.
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct InstanceMetadata {
     private_ip: String,
+    /// Availability zone, eg. `"us-west-2c"`.
     pub availability_zone: String,
+    /// EC2 instance id, eg. `"i-0edd3671c0bb87981"`.
     pub instance_id: String,
+    /// EC2 instance type, eg. `"t2.nano"`
     pub instance_type: String,
+    /// EC2 account ID; a 12-digit number representing the AWS account, eg. `"123456789012"`
     pub account_id: String,
     architecture: String, // FIXME: best data type?
+    /// Identifier for the Amazon Machine Image (AMI) this instance was launched from, eg. `"ami-f173dc91"`
     pub image_id: String,
     region: String, 
     // FIXME: devpayProductCodes
@@ -27,14 +35,17 @@ pub struct InstanceMetadata {
 }
 
 impl InstanceMetadata {
+    /// Retrieves the private IP address of this instance.
     pub fn private_ip(&self) -> Result<IpAddr, AddrParseError> {
         IpAddr::from_str(self.private_ip.as_str())
     }
+    /// Retrieves the AWS Region that this instance is running in, eg. `Region::UsWest2`.
     pub fn region(&self) -> Result<Region, ParseRegionError> {
         Region::from_str(self.region.as_str())
     }
 }
 
+/// Internal method for parsing instance metadata document.
 pub fn parse_metadata(text: &str) -> Result<InstanceMetadata, MetadataRetrievalError> {
     match serde_json::from_str(&text) {
         Ok(obj) => Ok(obj),
